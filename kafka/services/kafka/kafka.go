@@ -31,16 +31,12 @@ func InitializeHandlers() {
 func startPiping() {
 
 	for {
-		content, err := ConsumeEvents(consumer)
+		content, _ := ConsumeEvents(consumer)
+		var msg models.Strings
+		msg.Message = string(reverse(content))
+		err := ProduceEvent(&producer, &msg)
 		if err != nil {
-			var msg models.Strings
-			msg.Message = string(reverse(content))
-			err = ProduceEvent(&producer, &msg)
-			if err != nil {
-				logging.Warn("Error producing event")
-			}
-		} else {
-			logging.Warn("Error consuming event")
+			logging.Warn("Error producing event")
 		}
 	}
 
