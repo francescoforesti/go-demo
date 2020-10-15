@@ -27,7 +27,6 @@ func initializeConsumer(topic string) (sarama.PartitionConsumer, error) {
 	kafkaConsumer, err := kafka.CreateKafkaConsumer()
 	var partitionConsumer sarama.PartitionConsumer
 	if kafkaConsumer != nil {
-		//defer kafkaConsumer.Close()
 		partitions, err := kafkaConsumer.Partitions(topic)
 		partitionConsumer, err = kafkaConsumer.ConsumePartition(topic, partitions[0], sarama.OffsetOldest)
 		if err != nil {
@@ -35,7 +34,6 @@ func initializeConsumer(topic string) (sarama.PartitionConsumer, error) {
 				fmt.Sprintf("Error during Kafka Consumer initialization for topic %s: %s", topic, err))
 			os.Exit(1)
 		}
-		//defer partitionConsumer.Close()
 		logging.Info("Kafka consumer initialized")
 	} else if err != nil {
 		logging.Error("Error during Kafka partition initialization: " + err.Error())
@@ -58,8 +56,13 @@ func PostString(c *gin.Context) {
 	logging.Info(model.Message)
 	err := kafka.ProduceEvent(&producer, model)
 	if err != nil {
-		RespondErrorKafka(c, err)
-		return
+		c.JSON(
+			http.StatusInternalServerError,
+			gin.H{
+				"status":  http.StatusInternalServerError,
+				"message": err.Error(),
+			},
+		)
 	}
 }
 
@@ -69,16 +72,4 @@ func GetReversedString(c *gin.Context) {
 	c.Status(http.StatusOK)
 	c.Header("Content-Type", "application/json")
 	_, _ = c.Writer.Write(msg.Value)
-}
-
-func RespondErrorKafka(c *gin.Context, err error) {
-	c.JSON(
-		http.StatusInternalServerError,
-		gin.H{
-			"status":  http.StatusInternalServerError,
-			"message": err.Error(),
-		},
-	)
-	logging.Warn(fmt.Sprintf("Error while publishing on kafka: %s", err.Error()))
-	return
 }

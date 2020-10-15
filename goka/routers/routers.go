@@ -13,7 +13,6 @@ func InitializeServerPort() string {
 	if len(serverPort) == 0 {
 		serverPort = constants.SERVER_PORT
 	}
-	//TODO logging.Info("Server is running...")
 	return serverPort
 }
 

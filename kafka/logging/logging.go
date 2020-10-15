@@ -7,15 +7,13 @@ import (
 )
 
 var (
-	errTextLogger error
-
-	levels = map[string]logrus.Level{
+	logStdout = logrus.New()
+	levels    = map[string]logrus.Level{
 		"DEBUG": logrus.DebugLevel,
 		"INFO":  logrus.InfoLevel,
 		"WARN":  logrus.WarnLevel,
 		"ERROR": logrus.ErrorLevel,
 	}
-	logStdout = logrus.New()
 )
 
 func Debug(message string) {
@@ -38,14 +36,14 @@ func InitializeLoggers() {
 	customTextFormatter := new(logrus.TextFormatter)
 	customTextFormatter.FullTimestamp = true
 	logStdout.Out = os.Stdout
-	logStdout.Formatter = customTextFormatter //&logrus.JSONFormatter{}
+	logStdout.Formatter = customTextFormatter
 	logStdout.Level = getLogLevel()
 	Info(utils.LOG_MSG_LOGGERS_INITIALIZED)
 }
 
 func getLogLevel() logrus.Level {
-	var logLevel = os.Getenv(utils.LOG_LEVEL_ENV_VAR)
-	if len(logLevel) == 0 {
+	var logLevel, available = os.LookupEnv(utils.LOG_LEVEL_ENV_VAR)
+	if !available {
 		logLevel = utils.LOG_LEVEL
 	}
 	return levels[logLevel]

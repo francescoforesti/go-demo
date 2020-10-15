@@ -61,22 +61,21 @@ func newKafkaConfiguration() *sarama.Config {
 	conf := sarama.NewConfig()
 	conf.Producer.RequiredAcks = sarama.WaitForAll
 	conf.Producer.Return.Successes = true
-	//conf.ChannelBufferSize = 1
 	conf.Version = sarama.V2_6_0_0
 	return conf
 }
 
 func ConsumerTopic() string {
-	kafkaTopic := os.Getenv(utils.KAFKA_TOPIC_STRINGS_ENV)
-	if kafkaTopic == "" {
+	kafkaTopic, available := os.LookupEnv(utils.KAFKA_TOPIC_STRINGS_ENV)
+	if !available {
 		kafkaTopic = utils.KAFKA_TOPIC_STRINGS
 	}
 	return kafkaTopic
 }
 
 func ProducerTopic() string {
-	kafkaTopic := os.Getenv(utils.KAFKA_TOPIC_REVERSED_ENV)
-	if kafkaTopic == "" {
+	kafkaTopic, available := os.LookupEnv(utils.KAFKA_TOPIC_REVERSED_ENV)
+	if !available {
 		kafkaTopic = utils.KAFKA_TOPIC_REVERSED
 	}
 	return kafkaTopic
@@ -99,6 +98,6 @@ func CreateTopic(topic string) {
 
 func newCreateTopicRequest() sarama.CreateTopicsRequest {
 	req := new(sarama.CreateTopicsRequest)
-	// TODO: completare
+	// TODO
 	return *req
 }

@@ -25,7 +25,6 @@ func newKafkaConfiguration() *sarama.Config {
 	conf := sarama.NewConfig()
 	conf.Producer.RequiredAcks = sarama.WaitForAll
 	conf.Producer.Return.Successes = true
-	//conf.ChannelBufferSize = 1
 	conf.Version = sarama.V2_6_0_0
 	return conf
 }
@@ -48,7 +47,6 @@ func ConsumerTopic() string {
 
 func CreateKafkaProducer() (sarama.SyncProducer, error) {
 	producer, err := sarama.NewSyncProducer(brokers, kafkaConf)
-	//defer producer.Close()
 	if err != nil {
 		logging.Error(
 			fmt.Sprintf("Kafka error in Producer Initialization: %s", err))
@@ -75,7 +73,7 @@ func CreateTopic(topic string) {
 
 func newCreateTopicRequest() sarama.CreateTopicsRequest {
 	req := new(sarama.CreateTopicsRequest)
-	// TODO: completare
+	// TODO
 	return *req
 }
 

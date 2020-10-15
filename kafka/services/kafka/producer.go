@@ -6,8 +6,8 @@ import (
 	"github.com/Shopify/sarama"
 	"github.com/francescoforesti/go-demo/goka/logging"
 	"github.com/francescoforesti/go-demo/goka/models"
-	"time"
 	"os"
+	"time"
 )
 
 type MessageEvent struct {
@@ -17,7 +17,6 @@ type MessageEvent struct {
 
 func CreateKafkaProducer() (sarama.SyncProducer, error) {
 	producer, err := sarama.NewSyncProducer(brokers, kafkaConf)
-	//defer producer.Close()
 	if err != nil {
 		logging.Error(
 			fmt.Sprintf("Kafka error in Producer Initialization: %s", err))
@@ -35,13 +34,13 @@ func ProduceEvent(producer *sarama.SyncProducer, content *models.Strings) error 
 
 func sendMsg(producer sarama.SyncProducer, topic string, event MessageEvent) error {
 	logging.Info(fmt.Sprintf("Message: %+v", event))
-	json, err := json.Marshal(event)
+	jsonMsg, err := json.Marshal(event)
 	if err != nil {
 		return err
 	}
 	msgLog := &sarama.ProducerMessage{
 		Topic: topic,
-		Value: sarama.StringEncoder(json),
+		Value: sarama.StringEncoder(jsonMsg),
 	}
 
 	partition, offset, err := producer.SendMessage(msgLog)

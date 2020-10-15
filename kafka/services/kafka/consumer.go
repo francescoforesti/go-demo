@@ -20,7 +20,6 @@ func initializeConsumer(topic string) (sarama.PartitionConsumer, error) {
 	kafkaConsumer, err := CreateKafkaConsumer()
 	var partitionConsumer sarama.PartitionConsumer
 	if kafkaConsumer != nil {
-		//defer kafkaConsumer.Close()
 		partitions, err := kafkaConsumer.Partitions(topic)
 		partitionConsumer, err = kafkaConsumer.ConsumePartition(topic, partitions[0], sarama.OffsetOldest)
 		if err != nil {
@@ -28,7 +27,6 @@ func initializeConsumer(topic string) (sarama.PartitionConsumer, error) {
 				fmt.Sprintf("Error during Kafka Consumer initialization for topic %s: %s", topic, err))
 			os.Exit(1)
 		}
-		//defer partitionConsumer.Close()
 		logging.Info("Kafka consumer initialized")
 	} else if err != nil {
 		logging.Error("Error during Kafka partition initialization: " + err.Error())
