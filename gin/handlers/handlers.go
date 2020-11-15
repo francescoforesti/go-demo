@@ -3,9 +3,9 @@ package handlers
 import (
 	"fmt"
 	"github.com/Shopify/sarama"
-	"github.com/francescoforesti/go-demo/goka/logging"
-	"github.com/francescoforesti/go-demo/goka/models"
-	"github.com/francescoforesti/go-demo/goka/services/kafka"
+	"github.com/francescoforesti/go-demo/gin/logging"
+	"github.com/francescoforesti/go-demo/gin/models"
+	"github.com/francescoforesti/go-demo/gin/services/kafka"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"

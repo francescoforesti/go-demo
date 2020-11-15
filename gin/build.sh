@@ -1,3 +1,3 @@
 #!/bin/bash
 
-go build -o go-demo-goka
+go build -o go-demo-gin

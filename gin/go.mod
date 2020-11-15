@@ -1,4 +1,4 @@
-module github.com/francescoforesti/go-demo/goka
+module github.com/francescoforesti/go-demo/gin
 
 go 1.13
 

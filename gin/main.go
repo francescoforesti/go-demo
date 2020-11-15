@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/francescoforesti/go-demo/goka/handlers"
-	"github.com/francescoforesti/go-demo/goka/logging"
-	"github.com/francescoforesti/go-demo/goka/routers"
+	"github.com/francescoforesti/go-demo/gin/handlers"
+	"github.com/francescoforesti/go-demo/gin/logging"
+	"github.com/francescoforesti/go-demo/gin/routers"
 	"github.com/gin-gonic/gin"
 )
 

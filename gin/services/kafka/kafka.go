@@ -3,8 +3,8 @@ package kafka
 import (
 	"fmt"
 	"github.com/Shopify/sarama"
-	"github.com/francescoforesti/go-demo/goka/logging"
-	"github.com/francescoforesti/go-demo/goka/utils"
+	"github.com/francescoforesti/go-demo/gin/logging"
+	"github.com/francescoforesti/go-demo/gin/utils"
 	"os"
 )
 
