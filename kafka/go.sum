@@ -19,8 +19,8 @@ github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.m
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
 github.com/fortytw2/leaktest v1.3.0/go.mod h1:jDsjWgpAGjm2CA7WthBh/CdZYEPF31XHquHwclZch5g=
 github.com/francescoforesti/go-demo v0.0.0-20201015224359-4a7b6b94ae8b h1:hg7GAVLD/uf8Yc1eGCimTPbri62tunCDmWJvDVd1oJY=
-github.com/francescoforesti/go-demo/goka v0.0.0-20201015224359-4a7b6b94ae8b h1:qEBvARPEUA/FO1YRcKgtPt9cd7YA3LAbHmrynC0KYY0=
-github.com/francescoforesti/go-demo/goka v0.0.0-20201015224359-4a7b6b94ae8b/go.mod h1:Nvse9J9x3exveLkRvZykASSbhbrnNMWtwB4udJaH7Bo=
+github.com/francescoforesti/go-demo/gin v0.0.0-20201015224359-4a7b6b94ae8b h1:qEBvARPEUA/FO1YRcKgtPt9cd7YA3LAbHmrynC0KYY0=
+github.com/francescoforesti/go-demo/gin v0.0.0-20201015224359-4a7b6b94ae8b/go.mod h1:Nvse9J9x3exveLkRvZykASSbhbrnNMWtwB4udJaH7Bo=
 github.com/frankban/quicktest v1.10.0/go.mod h1:ui7WezCLWMWxVWr1GETZY3smRy0G4KWq9vcPtJmFl7Y=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/fsnotify/fsnotify v1.4.9/go.mod h1:znqG4EE+3YCdAaPaxE2ZRY/06pZUdp0tY4IgpuI1SZQ=

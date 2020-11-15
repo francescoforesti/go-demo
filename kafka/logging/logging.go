@@ -1,7 +1,7 @@
 package logging
 
 import (
-	"github.com/francescoforesti/go-demo/goka/utils"
+	"github.com/francescoforesti/go-demo/gin/utils"
 	"github.com/sirupsen/logrus"
 	"os"
 )
