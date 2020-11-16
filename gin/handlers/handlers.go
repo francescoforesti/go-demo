@@ -11,10 +11,12 @@ import (
 	"os"
 )
 
-var producer sarama.SyncProducer
-var errProducer error
-var consumer sarama.PartitionConsumer
-var errConsumer error
+var (
+	producer    sarama.SyncProducer
+	errProducer error
+	consumer    sarama.PartitionConsumer
+	errConsumer error
+)
 
 func InitializeHandlers() {
 	kafka.CreateTopic(kafka.ProducerTopic())
@@ -43,7 +45,7 @@ func initializeConsumer(topic string) (sarama.PartitionConsumer, error) {
 
 func PostString(c *gin.Context) {
 	logging.Debug(c.Request.Method + " " + c.Request.URL.String())
-	var model *models.Strings
+	var model *models.GinMessage
 	errBindJSON := c.BindJSON(&model)
 	if errBindJSON != nil {
 		logging.Warn("errBindJSON not nil: " + errBindJSON.Error())

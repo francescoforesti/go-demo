@@ -11,7 +11,7 @@ import (
 )
 
 type MessageEvent struct {
-	Content   *models.Strings
+	Content   *models.GinMessage
 	Timestamp *time.Time
 }
 
@@ -26,7 +26,7 @@ func CreateKafkaProducer() (sarama.SyncProducer, error) {
 	return producer, nil
 }
 
-func ProduceEvent(producer *sarama.SyncProducer, content *models.Strings) error {
+func ProduceEvent(producer *sarama.SyncProducer, content *models.GinMessage) error {
 	event := createEvent(content)
 	topic := ProducerTopic()
 	return sendMsg(*producer, topic, *event)
@@ -52,7 +52,7 @@ func sendMsg(producer sarama.SyncProducer, topic string, event MessageEvent) err
 	return err
 }
 
-func createEvent(content *models.Strings) *MessageEvent {
+func createEvent(content *models.GinMessage) *MessageEvent {
 	event := new(MessageEvent)
 	event.Content = content
 	event.Timestamp = createT(time.Now())

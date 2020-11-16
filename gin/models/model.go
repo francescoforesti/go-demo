@@ -1,5 +1,5 @@
 package models
 
-type Strings struct {
+type GinMessage struct {
 	Message string `json:message`
 }

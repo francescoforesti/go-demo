@@ -1,10 +1,11 @@
 package kafka
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/Shopify/sarama"
-	"github.com/francescoforesti/go-demo/gin/models"
 	"github.com/francescoforesti/go-demo/kafka/logging"
+	kafkaModel "github.com/francescoforesti/go-demo/kafka/models"
 	"github.com/francescoforesti/go-demo/kafka/utils"
 	"os"
 )
@@ -32,10 +33,15 @@ func startPiping() {
 
 	for {
 		content, _ := ConsumeEvents(consumer)
-		var msg models.Strings
-		msg.Message = string(reverse(content))
-		err := ProduceEvent(&producer, &msg)
+		var kafkaMsg kafkaModel.KafkaMessage
+		err := json.Unmarshal(content, &kafkaMsg)
 		if err != nil {
+			logging.Warn("Error unmarshalling event")
+		}
+		var ginMessage = kafkaMsg.Content
+		ginMessage.Message = string(reverse([]byte(ginMessage.Message)))
+		err2 := ProduceEvent(&producer, &ginMessage)
+		if err2 != nil {
 			logging.Warn("Error producing event")
 		}
 	}
