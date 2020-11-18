@@ -2,8 +2,8 @@ package routers
 
 import (
 	"github.com/francescoforesti/go-demo/gin/handlers"
-	"github.com/francescoforesti/go-demo/gin/logging"
 	constants "github.com/francescoforesti/go-demo/gin/utils"
+	"github.com/francescoforesti/go-demo/logging"
 	"github.com/gin-gonic/gin"
 	"os"
 )

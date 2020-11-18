@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/francescoforesti/go-demo/gin/handlers"
-	"github.com/francescoforesti/go-demo/gin/logging"
 	"github.com/francescoforesti/go-demo/gin/routers"
+	"github.com/francescoforesti/go-demo/logging"
 	"github.com/gin-gonic/gin"
 )
 

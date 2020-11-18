@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/francescoforesti/go-demo/kafka/logging"
 	"github.com/francescoforesti/go-demo/kafka/services/kafka"
+	"github.com/francescoforesti/go-demo/logging"
 )
 
 func main() {

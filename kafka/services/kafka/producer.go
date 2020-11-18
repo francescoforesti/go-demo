@@ -4,16 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/Shopify/sarama"
-	"github.com/francescoforesti/go-demo/gin/logging"
-	"github.com/francescoforesti/go-demo/gin/models"
+	kafkaModels "github.com/francescoforesti/go-demo/kafka/models"
+	"github.com/francescoforesti/go-demo/logging"
 	"os"
-	"time"
 )
-
-type MessageEvent struct {
-	Content   *models.GinMessage
-	Timestamp *time.Time
-}
 
 func CreateKafkaProducer() (sarama.SyncProducer, error) {
 	producer, err := sarama.NewSyncProducer(brokers, kafkaConf)
@@ -26,15 +20,14 @@ func CreateKafkaProducer() (sarama.SyncProducer, error) {
 	return producer, nil
 }
 
-func ProduceEvent(producer *sarama.SyncProducer, content *models.GinMessage) error {
-	event := createEvent(content)
+func ProduceEvent(producer *sarama.SyncProducer, content *kafkaModels.KafkaMessage) error {
 	topic := ProducerTopic()
-	return sendMsg(*producer, topic, *event)
+	return sendMsg(*producer, topic, *content)
 }
 
-func sendMsg(producer sarama.SyncProducer, topic string, event MessageEvent) error {
-	logging.Info(fmt.Sprintf("Message: %+v", event))
-	jsonMsg, err := json.Marshal(event)
+func sendMsg(producer sarama.SyncProducer, topic string, msg kafkaModels.KafkaMessage) error {
+	logging.Info(fmt.Sprintf("Message: %+v", msg))
+	jsonMsg, err := json.Marshal(msg)
 	if err != nil {
 		return err
 	}
@@ -50,15 +43,4 @@ func sendMsg(producer sarama.SyncProducer, topic string, event MessageEvent) err
 		logging.Info(fmt.Sprintf("Message is stored in partition %d, offset %d", partition, offset))
 	}
 	return err
-}
-
-func createEvent(content *models.GinMessage) *MessageEvent {
-	event := new(MessageEvent)
-	event.Content = content
-	event.Timestamp = createT(time.Now())
-	return event
-}
-
-func createT(t time.Time) *time.Time {
-	return &t
 }

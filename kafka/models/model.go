@@ -1,8 +1,12 @@
 package models
 
-import "github.com/francescoforesti/go-demo/gin/models"
+import (
+	"github.com/francescoforesti/go-demo/gin/models"
+	"time"
+)
 
 type KafkaMessage struct {
 	Content   models.GinMessage
-	Timestamp string
+	Reversed  models.GinMessage
+	Timestamp *time.Time
 }

@@ -1,7 +1,7 @@
 POST http://localhost:8080/api/v1/strings
 Content-Type: application/json
 
-{ "message": "test string" }
+{ "message": "giovanni" }
 
 ###
 

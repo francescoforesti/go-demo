@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/Shopify/sarama"
-	"github.com/francescoforesti/go-demo/kafka/logging"
+	"github.com/francescoforesti/go-demo/gin/models"
 	kafkaModel "github.com/francescoforesti/go-demo/kafka/models"
 	"github.com/francescoforesti/go-demo/kafka/utils"
+	"github.com/francescoforesti/go-demo/logging"
 	"os"
+	"time"
 )
 
 var (
@@ -30,7 +32,6 @@ func InitializeHandlers() {
 }
 
 func startPiping() {
-
 	for {
 		content, _ := ConsumeEvents(consumer)
 		var kafkaMsg kafkaModel.KafkaMessage
@@ -39,13 +40,14 @@ func startPiping() {
 			logging.Warn("Error unmarshalling event")
 		}
 		var ginMessage = kafkaMsg.Content
-		ginMessage.Message = string(reverse([]byte(ginMessage.Message)))
-		err2 := ProduceEvent(&producer, &ginMessage)
+		kafkaMsg.Reversed = models.GinMessage{Message: string(reverse([]byte(ginMessage.Message)))}
+		var now = time.Now()
+		kafkaMsg.Timestamp = &now
+		err2 := ProduceEvent(&producer, &kafkaMsg)
 		if err2 != nil {
 			logging.Warn("Error producing event")
 		}
 	}
-
 }
 
 func reverse(input []byte) []byte {

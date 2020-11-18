@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/Shopify/sarama"
-	"github.com/francescoforesti/go-demo/gin/logging"
 	"github.com/francescoforesti/go-demo/gin/models"
+	"github.com/francescoforesti/go-demo/logging"
 	"time"
 )
 
